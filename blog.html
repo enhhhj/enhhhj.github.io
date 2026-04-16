@@ -1,136 +1,210 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Task (2) Report | Xiaoyu Zhang</title>
-  <link rel="stylesheet" href="style.css" />
+ <meta charset="UTF-8" />
+ <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+ <title>Q2 Report | Xiaoyu Zhang</title>
+ <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <header class="navbar">
-    <div class="container nav-container">
-      <div class="logo">Xiaoyu Zhang</div>
-      <nav>
-        <a href="index.html">Home</a>
-        <a href="blog.html">Blog</a>
-      </nav>
-    </div>
-  </header>
+ <header class="navbar">
+ <div class="container nav-container">
+ <div class="logo">Xiaoyu Zhang</div>
+ <nav>
+ <a href="index.html">Home</a>
+ <a href="blog.html">Q2 Report</a>
+ </nav>
+ </div>
+ </header>
 
-  <main class="section">
-    <div class="container">
-      <h1 class="page-title">Task (2) Data Analysis Report</h1>
-      <p class="page-subtitle">
-        This page presents the main ideas, methodology, visualizations, and conclusions of my Task (2) analysis.
-      </p>
+ <main class="section">
+ <div class="container">
+ <h1 class="page-title">Q2 Coursework Report</h1>
+ <p class="page-subtitle">
+ Reproduction of the Databricks survival-analysis workflow, interpretation of churn survival models,
+ and failure-case analysis for Text-to-SQL.
+ </p>
 
-      <div class="blog-layout">
-        <article class="blog-main">
-          <section class="card blog-section">
-            <h2>1. Background</h2>
-            <p>
-              This project focuses on a data analysis task from coursework. The purpose of the task
-              is to explore the dataset, identify meaningful patterns, and communicate the findings clearly.
-            </p>
-          </section>
+ <div class="blog-layout">
+ <article class="blog-main">
+ <section class="card blog-section">
+ <h2>Project Overview</h2>
+ <p>
+ This project reproduces the Databricks survival-analysis accelerator in a local environment
+ and rewrites the original workflow into a single annotated notebook. The pipeline covers
+ data ingestion, Bronze/Silver table construction, survival modeling, customer lifetime value (CLV)
+ estimation, and a separate Text-to-SQL experiment.
+ </p>
+ </section>
 
-          <section class="card blog-section">
-            <h2>2. Dataset Description</h2>
-            <p>
-              The dataset contains structured observations relevant to the task objective. Before analysis,
-              I examined the variable types, checked missing values, and reviewed the overall data quality.
-            </p>
-            <p>
-              In this stage, the key goal was to understand what each variable represents and how the dataset
-              can support the research question.
-            </p>
-          </section>
+ <section class="card blog-section">
+ <h2>Data and Reproduction Scope</h2>
+ <ul>
+ <li>Original IBM Telco Customer Churn dataset: <strong>7043</strong> records</li>
+ <li>Filtered analysis cohort (month-to-month customers with internet service): <strong>3351</strong> records</li>
+ <li>Observed churn events: <strong>1556</strong></li>
+ <li>Right-censored observations: <strong>1795</strong></li>
+ <li>Storage fallback used in local reproduction: <strong>Parquet</strong></li>
+ </ul>
+ <p>
+ In the survival setup, <code>tenure</code> is treated as the duration variable and
+ <code>churn</code> as the event indicator.
+ </p>
+ </section>
 
-          <section class="card blog-section">
-            <h2>3. Analysis Objective</h2>
-            <p>
-              The main objective of this task is to answer specific analytical questions based on the dataset.
-              These questions may include identifying important trends, comparing groups, or evaluating the
-              relationship between variables.
-            </p>
-          </section>
+ <section class="card blog-section">
+ <h2>Part 1: PySpark Reproduction</h2>
+ <p>
+ The original Databricks notebooks were reorganized into a single local notebook with Chinese annotations.
+ To make the workflow portable, Databricks-specific components were replaced with a standard SparkSession,
+ local file paths, and a Delta-to-Parquet fallback strategy.
+ </p>
+ <p>
+ The reproduction preserved the overall logic of the original workflow:
+ data download, explicit schema definition, Bronze/Silver layer construction,
+ table registration, and downstream model-ready data generation.
+ </p>
+ </section>
 
-          <section class="card blog-section">
-            <h2>4. Methodology</h2>
-            <ul>
-              <li>Data cleaning and preprocessing</li>
-              <li>Exploratory data analysis</li>
-              <li>Summary statistics and group comparisons</li>
-              <li>Visualization of key findings</li>
-              <li>Interpretation of results</li>
-            </ul>
-            <p>
-              The analysis was conducted using common data analysis tools and programming workflows.
-            </p>
-          </section>
+ <section class="card blog-section">
+ <h2>Part 2: Survival Analysis Results</h2>
 
-          <section class="card blog-section">
-            <h2>5. Results and Visualizations</h2>
+ <h3>Kaplan–Meier Estimation</h3>
+ <p>
+ The overall Kaplan–Meier survival curve gives a median survival time of
+ <strong>34.0 months</strong>. The curve falls relatively quickly in the first year,
+ suggesting that churn risk is concentrated in the early customer lifecycle.
+ </p>
+ <img src="images/km_population.png" alt="Kaplan-Meier population curve" class="report-image" />
+ <p class="caption">Figure 1. Overall Kaplan–Meier survival curve.</p>
 
-            <h3>Figure 1</h3>
-            <img src="images/fig1.png" alt="Figure 1" class="report-image" />
-            <p class="caption">
-              Caption: Replace this with a short explanation of what Figure 1 shows and why it matters.
-            </p>
+ <h3>Group Comparison</h3>
+ <p>
+ Log-rank testing shows that <code>gender</code> is not statistically significant,
+ while <code>onlineSecurity</code> is highly significant. This indicates that service-related features
+ are much more informative for retention than simple demographic labels.
+ </p>
+ <img src="images/km_onlineSecurity.png" alt="KM curve by onlineSecurity" class="report-image" />
+ <p class="caption">Figure 2. Survival curves grouped by onlineSecurity.</p>
 
-            <h3>Figure 2</h3>
-            <img src="images/fig2.png" alt="Figure 2" class="report-image" />
-            <p class="caption">
-              Caption: Replace this with your interpretation of Figure 2.
-            </p>
+ <h3>Cox Proportional Hazards Model</h3>
+ <p>
+ In the Cox model, the estimated hazard ratios are:
+ </p>
+ <ul>
+ <li><strong>dependents_Yes:</strong> 0.72</li>
+ <li><strong>internetService_DSL:</strong> 0.80</li>
+ <li><strong>onlineBackup_Yes:</strong> 0.46</li>
+ <li><strong>techSupport_Yes:</strong> 0.53</li>
+ </ul>
+ <p>
+ All four are below 1, which means they are associated with lower churn risk.
+ The strongest protective effects come from online backup and technical support.
+ </p>
+ <img src="images/cox_hr_plot.png" alt="Cox hazard ratio plot" class="report-image" />
+ <p class="caption">Figure 3. Hazard ratios from the Cox proportional hazards model.</p>
 
-            <h3>Figure 3</h3>
-            <img src="images/fig3.png" alt="Figure 3" class="report-image" />
-            <p class="caption">
-              Caption: Replace this with your interpretation of Figure 3.
-            </p>
-          </section>
+ <h3>AFT Model</h3>
+ <p>
+ A Log-Logistic AFT model was also fitted. Its conclusions are broadly consistent with the Cox model:
+ online security, online backup, tech support, and some automatic payment methods are associated with
+ longer expected customer survival time.
+ </p>
+ <img src="images/aft_coefficients.png" alt="AFT coefficients plot" class="report-image" />
+ <p class="caption">Figure 4. Key time-ratio coefficients from the AFT model.</p>
+ </section>
 
-          <section class="card blog-section">
-            <h2>6. Key Findings</h2>
-            <ul>
-              <li>Finding 1: Write one important observation from your analysis.</li>
-              <li>Finding 2: Write another important pattern supported by your results.</li>
-              <li>Finding 3: Add one more conclusion based on your figures or statistics.</li>
-            </ul>
-          </section>
+ <section class="card blog-section">
+ <h2>Part 3: From Survival to CLV</h2>
+ <p>
+ The project further translates survival probabilities into business value. Using predicted survival curves,
+ expected monthly profit is discounted into cumulative net present value (NPV).
+ </p>
+ <ul>
+ <li>12-month cumulative NPV: <strong>251.40</strong></li>
+ <li>24-month cumulative NPV: <strong>405.44</strong></li>
+ <li>36-month cumulative NPV: <strong>about 509</strong></li>
+ </ul>
+ <p>
+ This shows how churn modeling can be interpreted not only as a retention problem,
+ but also as a financial decision-support tool.
+ </p>
+ <img src="images/clv_payback_bar.png" alt="CLV payback bar chart" class="report-image" />
+ <p class="caption">Figure 5. Cumulative NPV at 12, 24, and 36 months.</p>
 
-          <section class="card blog-section">
-            <h2>7. Conclusion</h2>
-            <p>
-              In conclusion, this analysis demonstrates how data can be explored and interpreted to answer
-              specific questions effectively. The results provide useful insights and show the importance of
-              combining clear methodology with visual evidence.
-            </p>
-          </section>
-        </article>
+ <img src="images/clv_survival_curve.png" alt="CLV survival curve" class="report-image" />
+ <p class="caption">Figure 6. Predicted survival curve used in CLV calculation.</p>
+ </section>
 
-        <aside class="blog-sidebar">
-          <div class="card">
-            <h3>Report Info</h3>
-            <p><strong>Author:</strong> Xiaoyu Zhang</p>
-            <p><strong>Coursework:</strong> Task (2)</p>
-            <p><strong>Topic:</strong> Data Analysis Report</p>
-          </div>
+ <section class="card blog-section">
+ <h2>Part 4: Text-to-SQL Experiment</h2>
+ <p>
+ In the final part of the project, GPT was tested on MySQL-based Text-to-SQL tasks.
+ The goal was not only to check whether SQL could run, but whether the generated SQL
+ faithfully matched the user question, the schema, and the data conditions.
+ </p>
 
-          <div class="card">
-            <h3>Quick Links</h3>
-            <p><a class="text-link" href="index.html">← Back to Home</a></p>
-          </div>
-        </aside>
-      </div>
-    </div>
-  </main>
+ <h3>Successful Case</h3>
+ <p>
+ For a medium-complexity query asking which payment method had the largest number of churned customers
+ among users whose monthly charge is above the global average, GPT produced correct SQL and returned:
+ <strong>Electronic check, 697</strong>.
+ </p>
 
-  <footer class="footer">
-    <div class="container">
-      <p>© 2026 Xiaoyu Zhang. Built with GitHub Pages.</p>
-    </div>
-  </footer>
+ <h3>Failure Cases</h3>
+ <ul>
+ <li><strong>Ambiguity:</strong> "highest-value customers" was wrongly reduced to the single user with the maximum total charge.</li>
+ <li><strong>Schema grounding + dirty data:</strong> the model answered from the analysis table instead of the raw table, avoiding totalCharges cleaning issues.</li>
+ <li><strong>SQL syntax error:</strong> <code>COUNT(*)</code> was incorrectly written as <code>COUNT()</code>.</li>
+ </ul>
+
+ <p>
+ The main lesson is that LLMs can perform well when the question is clear and the schema is complete,
+ but error rates increase when ambiguity, dirty data, or complex aggregation are involved.
+ </p>
+ </section>
+
+ <section class="card blog-section">
+ <h2>Conclusion</h2>
+ <p>
+ This coursework demonstrates a full pipeline from distributed data preprocessing to interpretable
+ survival modeling, business-value translation, and LLM-based SQL generation analysis.
+ Across KM, Cox, and AFT models, the most important signals are service-related features such as
+ online security, backup, and technical support. At the same time, the Text-to-SQL section shows that
+ evaluation should consider not only model quality, but also schema completeness, data cleanliness,
+ and validation workflow design.
+ </p>
+ </section>
+ </article>
+
+ <aside class="blog-sidebar">
+ <div class="card">
+ <h3>Quick Facts</h3>
+ <p><strong>Dataset:</strong> IBM Telco Customer Churn</p>
+ <p><strong>Frameworks:</strong> PySpark, lifelines, MySQL</p>
+ <p><strong>Main topics:</strong> Survival Analysis, CLV, Text-to-SQL</p>
+ </div>
+
+ <div class="card">
+ <h3>Highlights</h3>
+ <p>Median survival: <strong>34.0 months</strong></p>
+ <p>Strong retention signals: <strong>onlineSecurity</strong>, <strong>onlineBackup</strong>, <strong>techSupport</strong></p>
+ <p>Best SQL success case: <strong>Electronic check, 697</strong></p>
+ </div>
+
+ <div class="card">
+ <h3>Back</h3>
+ <p><a class="text-link" href="index.html">← Return to homepage</a></p>
+ </div>
+ </aside>
+ </div>
+ </div>
+ </main>
+
+ <footer class="footer">
+ <div class="container">
+ <p>© 2026 Xiaoyu Zhang. Built with GitHub Pages.</p>
+ </div>
+ </footer>
 </body>
 </html>

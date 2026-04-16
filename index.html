@@ -1,118 +1,121 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Xiaoyu Zhang | Personal Website</title>
-  <link rel="stylesheet" href="style.css" />
+ <meta charset="UTF-8" />
+ <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+ <title>Xiaoyu Zhang | Personal Website</title>
+ <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <header class="navbar">
-    <div class="container nav-container">
-      <div class="logo">Xiaoyu Zhang</div>
-      <nav>
-        <a href="index.html">Home</a>
-        <a href="#about">About</a>
-        <a href="#projects">Projects</a>
-        <a href="blog.html">Blog</a>
-        <a href="#contact">Contact</a>
-      </nav>
-    </div>
-  </header>
+ <header class="navbar">
+ <div class="container nav-container">
+ <div class="logo">Xiaoyu Zhang</div>
+ <nav>
+ <a href="index.html">Home</a>
+ <a href="blog.html">Q2 Report</a>
+ </nav>
+ </div>
+ </header>
 
-  <section class="hero">
-    <div class="container hero-content">
-      <div class="hero-text">
-        <p class="tag">Student Personal Website</p>
-        <h1>Hello, I'm Xiaoyu Zhang</h1>
-        <p class="subtitle">
-          I am a student interested in statistics, data analysis, and applied machine learning.
-          This website presents my background, coursework, and project portfolio.
-        </p>
-        <div class="hero-buttons">
-          <a class="btn" href="blog.html">View Task (2) Report</a>
-          <a class="btn btn-secondary" href="#contact">Contact Me</a>
-        </div>
-      </div>
-    </div>
-  </section>
+ <main>
+ <section id="hero" class="section hero">
+ <div class="container">
+ <h1>Hello, I'm Xiaoyu Zhang</h1>
+ <p class="hero-subtitle">
+ I am a student interested in statistics, data analysis, and applied machine learning.
+ This website presents my background, coursework, and project portfolio.
+ </p>
+ </div>
+ </section>
 
-  <section id="about" class="section">
-    <div class="container">
-      <h2>About Me</h2>
-      <div class="card">
-        <p>
-          I am currently studying in a field related to statistics and data science.
-          My academic interests include data visualization, predictive modeling,
-          and practical applications of data analysis in real-world problems.
-        </p>
-        <p>
-          Through coursework and projects, I have gained experience with Python,
-          SQL, data cleaning, exploratory data analysis, and report writing.
-        </p>
-      </div>
-    </div>
-  </section>
+ <section id="about" class="section">
+ <div class="container">
+ <h2>About Me</h2>
+ <p>
+ I am currently studying in a field related to statistics and data science.
+ My academic interests include data visualization, predictive modeling,
+ and practical applications of data analysis in real-world problems.
+ </p>
+ <p>
+ Through coursework and projects, I have gained experience with Python,
+ SQL, data cleaning, exploratory data analysis, and report writing.
+ </p>
+ </div>
+ </section>
 
-  <section class="section alt-bg">
-    <div class="container">
-      <h2>Skills</h2>
-      <div class="grid three">
-        <div class="card">
-          <h3>Programming</h3>
-          <p>Python, SQL, basic HTML/CSS, data processing workflows</p>
-        </div>
-        <div class="card">
-          <h3>Data Analysis</h3>
-          <p>EDA, data cleaning, aggregation, visualization, report interpretation</p>
-        </div>
-        <div class="card">
-          <h3>Tools</h3>
-          <p>Jupyter Notebook, GitHub, GitHub Pages, pandas, matplotlib</p>
-        </div>
-      </div>
-    </div>
-  </section>
+ <section id="skills" class="section">
+ <div class="container">
+ <h2>Skills</h2>
+ <div class="grid three">
+ <div class="card">
+ <h3>Programming</h3>
+ <ul>
+ <li>Python (pandas, NumPy, matplotlib, scikit-learn)</li>
+ <li>SQL (MySQL, PostgreSQL)</li>
+ <li>PySpark for distributed data processing</li>
+ <li>Basic HTML/CSS for web presentation</li>
+ </ul>
+ </div>
+ <div class="card">
+ <h3>Data Analysis</h3>
+ <ul>
+ <li>Exploratory Data Analysis (EDA)</li>
+ <li>Statistical modeling and hypothesis testing</li>
+ <li>Survival analysis (Kaplan-Meier, Cox PH, AFT)</li>
+ <li>Data visualization and reporting</li>
+ </ul>
+ </div>
+ <div class="card">
+ <h3>Tools & Frameworks</h3>
+ <ul>
+ <li>Jupyter Notebook for analysis workflows</li>
+ <li>GitHub for version control and project hosting</li>
+ <li>GitHub Pages for static site deployment</li>
+ <li>LaTeX for academic report writing</li>
+ </ul>
+ </div>
+ </div>
+ </div>
+ </section>
 
-  <section id="projects" class="section">
-    <div class="container">
-      <h2>Projects</h2>
-      <div class="grid two">
-        <div class="card">
-          <h3>Task (2) Data Analysis Report</h3>
-          <p>
-            A course-related data analysis project including data description,
-            methods, visualizations, and conclusions.
-          </p>
-          <a class="text-link" href="blog.html">Read more →</a>
-        </div>
-        <div class="card">
-          <h3>Coursework Portfolio</h3>
-          <p>
-            Additional coursework and technical practice related to statistics,
-            coding, and analytical problem solving.
-          </p>
-          <a class="text-link" href="#">Coming soon →</a>
-        </div>
-      </div>
-    </div>
-  </section>
+ <section id="projects" class="section">
+ <div class="container">
+ <h2>Projects</h2>
+ <div class="grid two">
+ <div class="card">
+ <h3>Q2 Survival Analysis Reproduction</h3>
+ <p>
+ A reproduction of the Databricks survival-analysis workflow using PySpark and local notebook adaptation.
+ The project covers Bronze/Silver table construction, Kaplan–Meier analysis, Cox PH, AFT, and CLV estimation.
+ </p>
+ <a class="text-link" href="blog.html">Read the full report →</a>
+ </div>
+ <div class="card">
+ <h3>Text-to-SQL Failure Analysis</h3>
+ <p>
+ A structured evaluation of GPT-based SQL generation under ambiguity, schema grounding errors,
+ dirty data, and complex aggregation settings.
+ </p>
+ <a class="text-link" href="blog.html#part-4">See examples →</a>
+ </div>
+ </div>
+ </div>
+ </section>
 
-  <section id="contact" class="section alt-bg">
-    <div class="container">
-      <h2>Contact</h2>
-      <div class="card">
-        <p><strong>Email:</strong> your_email@example.com</p>
-        <p><strong>GitHub:</strong> <a class="text-link" href="https://github.com/enhhhjj" target="_blank">github.com/enhhhjj</a></p>
-        <p><strong>Note:</strong> You can update this section with LinkedIn or other academic profiles later.</p>
-      </div>
-    </div>
-  </section>
+ <section id="contact" class="section">
+ <div class="container">
+ <h2>Contact</h2>
+ <p>Email: your_email@example.com</p>
+ <p>GitHub: <a href="https://github.com/enhhhj" class="text-link">github.com/enhhhj</a></p>
+ <p class="note">Note: You can update this section with LinkedIn or other academic profiles later.</p>
+ </div>
+ </section>
+ </main>
 
-  <footer class="footer">
-    <div class="container">
-      <p>© 2026 Xiaoyu Zhang. Built with GitHub Pages.</p>
-    </div>
-  </footer>
+ <footer class="footer">
+ <div class="container">
+ <p>© 2026 Xiaoyu Zhang. Built with GitHub Pages.</p>
+ </div>
+ </footer>
 </body>
 </html>
