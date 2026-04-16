@@ -1,52 +1,118 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Xiaoyu Zhang</title>
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #f5f7fb;
-      color: #222;
-    }
-    .container {
-      max-width: 900px;
-      margin: 60px auto;
-      background: white;
-      padding: 40px;
-      border-radius: 18px;
-      box-shadow: 0 8px 24px rgba(0,0,0,0.08);
-    }
-    h1 {
-      color: #2563eb;
-      margin-bottom: 10px;
-    }
-    p {
-      line-height: 1.8;
-      font-size: 18px;
-    }
-    .btn {
-      display: inline-block;
-      margin-top: 20px;
-      padding: 12px 20px;
-      background: #2563eb;
-      color: white;
-      text-decoration: none;
-      border-radius: 10px;
-    }
-    .btn:hover {
-      background: #1d4ed8;
-    }
-  </style>
+  <title>Xiaoyu Zhang | Personal Website</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div class="container">
-    <h1>你好，我是 Xiaoyu Zhang</h1>
-    <p>欢迎来到我的个人网站。</p>
-    <p>这里会放我的个人介绍、项目经历、学习笔记和联系方式。</p>
-    <a class="btn" href="mailto:your_email@example.com">联系我</a>
-  </div>
+  <header class="navbar">
+    <div class="container nav-container">
+      <div class="logo">Xiaoyu Zhang</div>
+      <nav>
+        <a href="index.html">Home</a>
+        <a href="#about">About</a>
+        <a href="#projects">Projects</a>
+        <a href="blog.html">Blog</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="container hero-content">
+      <div class="hero-text">
+        <p class="tag">Student Personal Website</p>
+        <h1>Hello, I'm Xiaoyu Zhang</h1>
+        <p class="subtitle">
+          I am a student interested in statistics, data analysis, and applied machine learning.
+          This website presents my background, coursework, and project portfolio.
+        </p>
+        <div class="hero-buttons">
+          <a class="btn" href="blog.html">View Task (2) Report</a>
+          <a class="btn btn-secondary" href="#contact">Contact Me</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="about" class="section">
+    <div class="container">
+      <h2>About Me</h2>
+      <div class="card">
+        <p>
+          I am currently studying in a field related to statistics and data science.
+          My academic interests include data visualization, predictive modeling,
+          and practical applications of data analysis in real-world problems.
+        </p>
+        <p>
+          Through coursework and projects, I have gained experience with Python,
+          SQL, data cleaning, exploratory data analysis, and report writing.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section alt-bg">
+    <div class="container">
+      <h2>Skills</h2>
+      <div class="grid three">
+        <div class="card">
+          <h3>Programming</h3>
+          <p>Python, SQL, basic HTML/CSS, data processing workflows</p>
+        </div>
+        <div class="card">
+          <h3>Data Analysis</h3>
+          <p>EDA, data cleaning, aggregation, visualization, report interpretation</p>
+        </div>
+        <div class="card">
+          <h3>Tools</h3>
+          <p>Jupyter Notebook, GitHub, GitHub Pages, pandas, matplotlib</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="projects" class="section">
+    <div class="container">
+      <h2>Projects</h2>
+      <div class="grid two">
+        <div class="card">
+          <h3>Task (2) Data Analysis Report</h3>
+          <p>
+            A course-related data analysis project including data description,
+            methods, visualizations, and conclusions.
+          </p>
+          <a class="text-link" href="blog.html">Read more →</a>
+        </div>
+        <div class="card">
+          <h3>Coursework Portfolio</h3>
+          <p>
+            Additional coursework and technical practice related to statistics,
+            coding, and analytical problem solving.
+          </p>
+          <a class="text-link" href="#">Coming soon →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="section alt-bg">
+    <div class="container">
+      <h2>Contact</h2>
+      <div class="card">
+        <p><strong>Email:</strong> your_email@example.com</p>
+        <p><strong>GitHub:</strong> <a class="text-link" href="https://github.com/enhhhjj" target="_blank">github.com/enhhhjj</a></p>
+        <p><strong>Note:</strong> You can update this section with LinkedIn or other academic profiles later.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <p>© 2026 Xiaoyu Zhang. Built with GitHub Pages.</p>
+    </div>
+  </footer>
 </body>
 </html>
